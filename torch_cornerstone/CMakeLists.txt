@@ -1,13 +1,11 @@
 cmake_minimum_required(VERSION 3.10)
-project(vesin_cornerstone LANGUAGES CXX CUDA)
+project(torch_cornerstone LANGUAGES CXX CUDA)
 
 set(LIB_INSTALL_DIR "lib" CACHE PATH "Path relative to CMAKE_INSTALL_PREFIX where to install libraries")
 set(BIN_INSTALL_DIR "bin" CACHE PATH "Path relative to CMAKE_INSTALL_PREFIX where to install DLL/binaries")
 set(INCLUDE_INSTALL_DIR "include" CACHE PATH "Path relative to CMAKE_INSTALL_PREFIX where to install headers")
 
-#OPTION(BUILD_SHARED_LIBS "Build shared libraries instead of static ones" OFF)
-SET(CUDA_SEPARABLE_COMPILATION ON)
-
+find_package(MPI REQUIRED)
 find_package(Python COMPONENTS Interpreter REQUIRED)
 
 include(CheckLanguage)
@@ -35,25 +33,26 @@ set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${TORCH_CMAKE_PATH_OUTPUT}")
 
 find_package(Torch 1.13 REQUIRED)
 
+add_subdirectory(${CMAKE_SOURCE_DIR}/cornerstone)
+
 include_directories(
     ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_SOURCE_DIR}/include
+    ${CMAKE_SOURCE_DIR}/cornerstone/include
 )
 
-add_library(vesin_cornerstone SHARED
+add_library(torch_cornerstone SHARED
     "src/torch_cornerstone.cpp"
 )
 
-target_link_libraries(vesin_cornerstone "${TORCH_LIBRARIES}")
+target_link_libraries(torch_cornerstone "${TORCH_LIBRARIES}" cstone_gpu MPI::MPI_CXX)
 
-target_compile_features(vesin_cornerstone PRIVATE cxx_std_17)
+target_compile_features(torch_cornerstone PRIVATE cxx_std_20)
 
-set_target_properties(vesin_cornerstone PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
-set_target_properties(vesin_cornerstone PROPERTIES CUDA_RESOLVE_DEVICE_SYMBOLS ON)
-set_target_properties(vesin_cornerstone PROPERTIES CUDA_ARCHITECTURES native)
+set_target_properties(torch_cornerstone PROPERTIES CUDA_ARCHITECTURES native)
 
 set(CMAKE_CUDA_STANDARD 17)
 
-install(TARGETS vesin_cornerstone
+install(TARGETS torch_cornerstone
     LIBRARY DESTINATION "lib"
 )
