@@ -1,3 +1,3 @@
 [submodule "external/cornerstone"]
-	path = external/cornerstone
+	path = torch_cornerstone/cornerstone
 	url = https://github.com/sekelle/cornerstone-octree.git
