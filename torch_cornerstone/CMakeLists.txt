@@ -35,6 +35,9 @@ find_package(Torch 1.13 REQUIRED)
 
 set(BUILD_TESTING OFF CACHE BOOL "Disable cornerstone tests" FORCE)
 
+set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -Xcompiler -fPIC -ccbin=mpicxx")
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 add_subdirectory(${CMAKE_SOURCE_DIR}/cornerstone)
 
 include_directories(
@@ -52,6 +55,7 @@ target_link_libraries(torch_cornerstone "${TORCH_LIBRARIES}" cstone_gpu MPI::MPI
 target_compile_features(torch_cornerstone PRIVATE cxx_std_20)
 
 set_target_properties(torch_cornerstone PROPERTIES CUDA_ARCHITECTURES native)
+set_target_properties(torch_cornerstone PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 set(CMAKE_CUDA_STANDARD 17)
 

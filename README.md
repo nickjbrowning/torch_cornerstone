@@ -1,4 +1,4 @@
 # torch_cornerstone
 
 ## Installation
-[uv] pip install .
+CC=mpicc CXX=mpicxx [uv] pip install .
