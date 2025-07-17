@@ -1,0 +1,27 @@
+[project]
+name = "vesin_cornerstone"
+version = "0.1"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Nicholas Browning", email = "nickjbrowning@gmail.com" }
+]
+dependencies = [
+    "torch>=2.1",
+    "numpy>=1.26",
+]
+
+[build-system]
+requires = ["setuptools", 
+            "wheel", 
+            "ninja", 
+            "cmake", 
+            "torch >= 2.1",
+            "numpy >= 1.26"
+]
+
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["vesin_cornerstone"]
