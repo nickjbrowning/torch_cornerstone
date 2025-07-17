@@ -6,8 +6,8 @@
 
 using namespace std;
 
-void test_cornerstone() { std::cout << "(｡◕‿◕｡)" << std::endl; }
+void test_link() { std::cout << "(｡◕‿◕｡)" << std::endl; }
 
 TORCH_LIBRARY(torch_cornerstone, m) {
-  m.def("test_cornerstone", &test_cornerstone);
+  m.def("test_link", &test_link);
 }

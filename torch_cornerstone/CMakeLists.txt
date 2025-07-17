@@ -33,6 +33,8 @@ set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${TORCH_CMAKE_PATH_OUTPUT}")
 
 find_package(Torch 1.13 REQUIRED)
 
+set(BUILD_TESTING OFF CACHE BOOL "Disable cornerstone tests" FORCE)
+
 add_subdirectory(${CMAKE_SOURCE_DIR}/cornerstone)
 
 include_directories(
