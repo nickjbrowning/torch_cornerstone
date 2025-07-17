@@ -45,10 +45,10 @@ class cmake_ext(build_ext):
     """Build the native library using cmake"""
 
     def run(self):
-        source_dir = os.path.join(ROOT, "cuda")
+        source_dir = os.path.join(ROOT, "torch_cornerstone")
         build_dir = os.path.join(ROOT, "build", "cmake-build")
         install_dir = os.path.join(
-            os.path.realpath(self.build_lib), "vesin_cornerstone")
+            os.path.realpath(self.build_lib), "torch_cornerstone")
 
         os.makedirs(build_dir, exist_ok=True)
 
@@ -79,7 +79,7 @@ class cmake_ext(build_ext):
 
 if __name__ == "__main__":
     setup(
-        version=open("VERSION").readline().strip(),
+        version="0.1",
         ext_modules=[
             Extension(name="tradas_blocks", sources=[]),
         ],
@@ -89,9 +89,9 @@ if __name__ == "__main__":
             "bdist_wheel": universal_wheel,
         },
         package_data={
-            "cuda": [
-                "cuda/lib/*",
-                "cuda/include/*",
+            "torch_cornerstone": [
+                "torch_cornerstone/lib/*",
+                "torch_cornerstone/include/*",
             ]
         },
     )

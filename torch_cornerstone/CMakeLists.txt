@@ -41,7 +41,7 @@ include_directories(
 )
 
 add_library(vesin_cornerstone SHARED
-    "src/cornerstone_torch.cpp"
+    "src/torch_cornerstone.cpp"
 )
 
 target_link_libraries(vesin_cornerstone "${TORCH_LIBRARIES}")
