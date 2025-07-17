@@ -1,1 +1,3 @@
-# vesin_cornerstone
+# torch_cornerstone
+
+[uv] pip install .
